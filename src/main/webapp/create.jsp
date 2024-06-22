@@ -176,11 +176,17 @@ footer ul li:hover {
 	<main>
 		<h1>Create Account </h1>
 		<form action="create" method="post">
-			<label for="id">Id</label> <input id="id" type="text"  name="id" placeholder="Enter ID">
-			<label for="name">Name</label> <input id="name" type="text"  name="name" placeholder="Enter Name">
-			<label for="email">Email</label> <input id="email" type="email"  name="email" placeholder="Enter Email">
-			<label for="phone">Phone Number</label> <input id="phone" type="tel"  name="phone" placeholder="Enter Phone Number">
-			<label for="password">Password</label> <input id="password" type="password"  name="password" placeholder="Enter Password">
+			<label for="id">Id</label> <input id="id" type="text"  name="id" placeholder="Enter ID" required="required">
+			<label for="name">Name</label> <input id="name" type="text"  name="name" placeholder="Enter Name" required="required">
+			<label for="email">Email</label> <input id="email" type="email"  name="email" placeholder="Enter Email" required="required">
+			<label for="phone">Phone Number</label> <input id="phone" type="tel"  name="phone" placeholder="Enter Phone Number" required="required">
+			<label for="role">Role</label> 
+											<select id="role" name="role" required="required" >
+												<option selected="selected" value="USER">---Select---</option>
+												<option value="USER">USER</option>
+												<option value="ADMIN">ADMIN</option>
+											</select>
+			<label for="password">Password</label> <input id="password" type="password"  name="password" placeholder="Enter Password" required="required">
 			<button type="submit">Create Account</button>	
 		</form>
 		<span>You have Account Already? <a href="login_page">Click Here</a> to Login</span>
