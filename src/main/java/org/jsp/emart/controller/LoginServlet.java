@@ -33,13 +33,13 @@ public class LoginServlet  extends HttpServlet{
 			{
 				if(rs.getString(5).equals("ADMIN"))
 				{
-					ps = con.prepareStatement("select * from user where role='USER'");
-					rs=ps.executeQuery();
-					req.setAttribute("rs", rs);
+					req.setAttribute("rs", con.prepareStatement("select * from user where role='USER'").executeQuery());
+					resp.getWriter().write("<html><body><h3 id='abc'>Mr."+rs.getString(2)+" Welcome Back...</h3></body></html>");
 					req.getRequestDispatcher("adminhome.jsp").include(req, resp);
 				}
 				else if(rs.getString(5).equals("USER"))
 				{
+					resp.getWriter().write("<html><body><h3>USER Login Successfull...</h3></body></html>");
 					req.getRequestDispatcher("home.jsp").include(req, resp);
 				}
 			}

@@ -166,10 +166,6 @@ footer ul li:hover {
 	<header>
 		<h1>Emart</h1>
 		<ul>
-			<li> <a href="home_page">Home</a> </li>
-			<li> <a href="products_page">Products</a> </li>
-			<li> <a href="services_page">Services</a> </li>
-			<li> <a href="about_page">About</a> </li>
 			<li> <a href="login_page">Login</a> </li>
 		</ul>
 	</header>

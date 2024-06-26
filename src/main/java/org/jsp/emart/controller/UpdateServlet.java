@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -12,41 +13,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = "/create")
-public class CreateServlet extends HttpServlet {
+@WebServlet("/update")
+public class UpdateServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int id = Integer.parseInt(req.getParameter("id"));
 		String name = req.getParameter("name");
 		String email = req.getParameter("email");
 		long phone = Long.parseLong(req.getParameter("phone"));
-		String password = req.getParameter("password");
 		String role = req.getParameter("role");
+		String password = req.getParameter("password");
 
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/emart", "root", "root");
-			PreparedStatement ps = con.prepareStatement("insert into user values(?,?,?,?,?,?)");
-			ps.setInt(1, id);
-			ps.setString(2, name);
-			ps.setString(3, email);
-			ps.setLong(4, phone);
-			ps.setString(5, role);
-			ps.setString(6, password);
-			
+			PreparedStatement ps = con
+					.prepareStatement("update user set name=?, email=?, phone=?, role=?, password=? where id=?");
+			ps.setString(1, name);
+			ps.setString(2, email);
+			ps.setLong(3, phone);
+			ps.setString(4, role);
+			ps.setString(5, password);
+			ps.setInt(6, id);
 			int row = ps.executeUpdate();
 			if (row == 1) {
-				resp.getWriter().write("<html><body><h3 id='abc'>Account Created Successfully Please Login</h3></body></html>");
-				req.getRequestDispatcher("login.jsp").include(req, resp);
-			} else {
-				resp.getWriter()
-						.write("<html><body><h3>Something Went Wrong Please Try Again Later..</h3></body></html>");
-				req.getRequestDispatcher("create.jsp").include(req, resp);
+				resp.getWriter().write("<html><body><h3 id='abc'>User Updated Successfully...</h3></body></html>");
+				req.setAttribute("rs", con.prepareStatement("select * from user where role='USER'").executeQuery());
+				req.getRequestDispatcher("adminhome.jsp").include(req, resp);
 			}
 			ps.close();
 			con.close();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
